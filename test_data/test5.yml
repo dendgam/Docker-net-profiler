@@ -1,0 +1,67 @@
+services:
+  udp_server:
+    image: python:3.12-alpine
+    container_name: profiler_udp_server
+    command:
+      - python
+      - -u
+      - -c
+      - |
+        import socket
+        server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        server.bind(("0.0.0.0", 9100))
+        print("UDP server listens on port 9100", flush=True)
+        while True:
+            data, address = server.recvfrom(1024)
+            server.sendto(b"pong", address)
+    networks:
+      udp_test_net:
+        ipv4_address: 172.31.50.2
+
+  udp_client:
+    image: python:3.12-alpine
+    container_name: profiler_udp_client
+    depends_on:
+      - udp_server
+    command:
+      - python
+      - -u
+      - -c
+      - |
+        import socket
+        import time
+        client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        while True:
+            try:
+                client.connect(("udp_server", 9100))
+                break
+            except Exception:
+                time.sleep(1)
+        while True:
+            client.send(b"ping")
+            client.recv(1024)
+            time.sleep(2)
+    networks:
+      udp_test_net:
+        ipv4_address: 172.31.50.3
+
+  isolated_idle:
+    image: alpine:3.20
+    container_name: profiler_isolated_idle
+    command: sh -c "sleep 3600"
+    networks:
+      isolated_test_net:
+        ipv4_address: 172.31.51.2
+
+networks:
+  udp_test_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.50.0/24
+
+  isolated_test_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.51.0/24

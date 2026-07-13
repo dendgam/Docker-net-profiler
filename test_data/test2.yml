@@ -1,0 +1,31 @@
+services:
+  idle_a:
+    image: alpine:3.20
+    container_name: profiler_idle_a
+    command: sh -c "sleep 3600"
+    networks:
+      idle_test_net:
+        ipv4_address: 172.31.20.2
+
+  idle_b:
+    image: alpine:3.20
+    container_name: profiler_idle_b
+    command: sh -c "sleep 3600"
+    networks:
+      idle_test_net:
+        ipv4_address: 172.31.20.3
+
+  idle_c:
+    image: alpine:3.20
+    container_name: profiler_idle_c
+    command: sh -c "sleep 3600"
+    networks:
+      idle_test_net:
+        ipv4_address: 172.31.20.4
+
+networks:
+  idle_test_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.20.0/24

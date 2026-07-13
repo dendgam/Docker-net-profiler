@@ -1,0 +1,31 @@
+services:
+  idle:
+    image: alpine:3.20
+    container_name: profiler_existing_idle
+    command: sh -c "sleep 3600"
+    networks:
+      stopped_test_net:
+        ipv4_address: 172.31.40.2
+
+  completed_ok:
+    image: alpine:3.20
+    container_name: profiler_completed_ok
+    command: sh -c "echo 'task completed successfully'; exit 0"
+    networks:
+      stopped_test_net:
+        ipv4_address: 172.31.40.3
+
+  completed_error:
+    image: alpine:3.20
+    container_name: profiler_completed_error
+    command: sh -c "echo 'task failed'; exit 2"
+    networks:
+      stopped_test_net:
+        ipv4_address: 172.31.40.4
+
+networks:
+  stopped_test_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.40.0/24

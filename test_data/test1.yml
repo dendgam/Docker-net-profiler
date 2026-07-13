@@ -1,0 +1,72 @@
+services:
+  tcp_server:
+    image: python:3.12-alpine
+    container_name: profiler_tcp_server
+    command:
+      - python
+      - -u
+      - -c
+      - |
+        import socket
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server.bind(("0.0.0.0", 9000))
+        server.listen(5)
+        print("TCP server listens on port 9000", flush=True)
+        while True:
+            connection, address = server.accept()
+            try:
+                while True:
+                    data = connection.recv(1024)
+                    if not data:
+                        break
+                    connection.sendall(b"pong")
+            finally:
+                connection.close()
+    networks:
+      tcp_test_net:
+        ipv4_address: 172.31.10.2
+
+  tcp_client:
+    image: python:3.12-alpine
+    container_name: profiler_tcp_client
+    depends_on:
+      - tcp_server
+    command:
+      - python
+      - -u
+      - -c
+      - |
+        import socket
+        import time
+        while True:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            try:
+                client.connect(("tcp_server", 9000))
+                print("Connected to tcp_server:9000", flush=True)
+                while True:
+                    client.sendall(b"ping")
+                    client.recv(1024)
+                    time.sleep(2)
+            except Exception as error:
+                print(f"Connection error: {error}", flush=True)
+                client.close()
+                time.sleep(1)
+    networks:
+      tcp_test_net:
+        ipv4_address: 172.31.10.3
+
+  idle:
+    image: alpine:3.20
+    container_name: profiler_tcp_idle
+    command: sh -c "sleep 3600"
+    networks:
+      tcp_test_net:
+        ipv4_address: 172.31.10.4
+
+networks:
+  tcp_test_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.10.0/24
