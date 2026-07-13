@@ -1,0 +1,170 @@
+{
+  "stand": "local",
+  "created_at": "2026-07-10T12:34:34",
+  "interval_seconds": 30,
+  "host": {
+    "cpu_percent": 0.0,
+    "ram_percent": 0.0
+  },
+  "summary": {
+    "running": 3,
+    "alive": 2,
+    "inactive": 1,
+    "dead": 1,
+    "dead_during_interval": 1,
+    "actual_links": 1,
+    "network_hints": 2
+  },
+  "containers": [
+    {
+      "id": "docker_profiler-receiver_b-1",
+      "short_id": "docker_profi",
+      "name": "docker_profiler-receiver_b-1",
+      "image": "demo",
+      "status": "running",
+      "running": true,
+      "ip": "172.18.0.3",
+      "networks": [
+        "demo_net"
+      ],
+      "network_details": {
+        "demo_net": {
+          "ip": "172.18.0.3",
+          "ipv4": "172.18.0.3",
+          "ipv6": ""
+        }
+      },
+      "started_at": "demo",
+      "finished_at": "",
+      "exit_code": null,
+      "traffic": {
+        "rx_kb": 14.13,
+        "tx_kb": 38.73,
+        "total_kb": 52.86
+      },
+      "life": "alive"
+    },
+    {
+      "id": "docker_profiler-sender_a-1",
+      "short_id": "docker_profi",
+      "name": "docker_profiler-sender_a-1",
+      "image": "demo",
+      "status": "running",
+      "running": true,
+      "ip": "172.18.0.4",
+      "networks": [
+        "demo_net"
+      ],
+      "network_details": {
+        "demo_net": {
+          "ip": "172.18.0.4",
+          "ipv4": "172.18.0.4",
+          "ipv6": ""
+        }
+      },
+      "started_at": "demo",
+      "finished_at": "",
+      "exit_code": null,
+      "traffic": {
+        "rx_kb": 37.17,
+        "tx_kb": 13.58,
+        "total_kb": 50.75
+      },
+      "life": "alive"
+    },
+    {
+      "id": "docker_profiler-storage_c-1",
+      "short_id": "docker_profi",
+      "name": "docker_profiler-storage_c-1",
+      "image": "demo",
+      "status": "running",
+      "running": true,
+      "ip": "172.18.0.2",
+      "networks": [
+        "demo_net"
+      ],
+      "network_details": {
+        "demo_net": {
+          "ip": "172.18.0.2",
+          "ipv4": "172.18.0.2",
+          "ipv6": ""
+        }
+      },
+      "started_at": "demo",
+      "finished_at": "",
+      "exit_code": null,
+      "traffic": {
+        "rx_kb": 0.0,
+        "tx_kb": 0.0,
+        "total_kb": 0.0
+      },
+      "life": "inactive"
+    },
+    {
+      "id": "docker_profiler-temp_dead-1",
+      "short_id": "docker_profi",
+      "name": "docker_profiler-temp_dead-1",
+      "image": "demo",
+      "status": "exited",
+      "running": false,
+      "ip": "172.18.0.5",
+      "networks": [
+        "demo_net"
+      ],
+      "network_details": {
+        "demo_net": {
+          "ip": "172.18.0.5",
+          "ipv4": "172.18.0.5",
+          "ipv6": ""
+        }
+      },
+      "started_at": "demo",
+      "finished_at": "demo",
+      "exit_code": 0,
+      "traffic": {
+        "rx_kb": 0.0,
+        "tx_kb": 0.0,
+        "total_kb": 0.0
+      },
+      "life": "dead",
+      "dead_reason": "died_during_interval"
+    }
+  ],
+  "links": [
+    {
+      "source_id": "docker_profiler-sender_a-1",
+      "target_id": "docker_profiler-receiver_b-1",
+      "source": "docker_profiler-sender_a-1",
+      "target": "docker_profiler-receiver_b-1",
+      "network": "demo_net",
+      "protocol": "TCP",
+      "target_port": 9000,
+      "type": "socket",
+      "count": 1
+    },
+    {
+      "source_id": "docker_profiler-receiver_b-1",
+      "target_id": "docker_profiler-storage_c-1",
+      "source": "docker_profiler-receiver_b-1",
+      "target": "docker_profiler-storage_c-1",
+      "network": "demo_net",
+      "protocol": "-",
+      "target_port": "-",
+      "type": "no_socket",
+      "count": 0
+    },
+    {
+      "source_id": "docker_profiler-sender_a-1",
+      "target_id": "docker_profiler-storage_c-1",
+      "source": "docker_profiler-sender_a-1",
+      "target": "docker_profiler-storage_c-1",
+      "network": "demo_net",
+      "protocol": "-",
+      "target_port": "-",
+      "type": "no_socket",
+      "count": 0
+    }
+  ],
+  "socket_errors": [],
+  "note": "socket = реальная текущая связь; no_socket = общая Docker-сеть, но socket-связь не найдена."
+}

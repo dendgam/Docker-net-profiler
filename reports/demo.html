@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Docker Network Profiler</title>
+  <style>
+    body{margin:0;background:#1b1b1b;color:white;font-family:Arial,sans-serif}
+    .header{padding:18px 24px 8px}
+    h1{margin:0 0 8px;font-size:24px}
+    .small{color:#ccc}
+    .legend{display:flex;gap:16px;flex-wrap:wrap;padding:8px 24px 12px;color:#ddd;font-size:14px}
+    .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px}
+    .g{background:#00ff3b} .x{background:#ffd24a} .r{background:#ff4545}
+    .canvas{position:relative;width:1050px;height:650px;margin:0 auto 24px;background:#1b1b1b}
+    svg{position:absolute;left:0;top:0;width:1050px;height:650px;z-index:1}
+    .node{position:absolute;z-index:2;width:280px;height:92px;box-sizing:border-box;border-radius:9px;background:#2d2d2d;padding:11px 14px;text-align:center}
+    .node.alive{border:3px solid #00ff3b}
+    .node.inactive{border:3px solid #ffd24a;color:#eee}
+    .node.dead{border:3px solid #ff4545;background:#3a2222}
+    .name{font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .life{font-size:13px;color:#ccc;margin-top:2px}
+    .edge{fill:#ddd;font-size:13px;text-anchor:middle}
+    .bottom{max-width:1000px;margin:0 auto 24px;color:#ddd;line-height:1.5}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Docker Network Profiler — local</h1>
+    <div class="small">Интервал: 30 сек. | 2026-07-10T12:34:34</div>
+  </div>
+  <div class="legend">
+    <span><span class="dot g"></span>running + есть трафик/socket</span>
+    <span><span class="dot x"></span>running, но трафика не видно</span>
+    <span><span class="dot r"></span>exited/dead</span>
+    <span>зелёная стрелка — реальный socket</span>
+    <span>пунктир — общая сеть, но общения не видно</span>
+  </div>
+  <div class="canvas">
+    <svg>
+      <defs>
+        <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#00ff3b"/></marker>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#777"/></marker>
+      </defs>
+      <line x1="667.8" y1="267.8" x2="592.2" y2="192.2" stroke="#00ff3b" stroke-width="4"  marker-end="url(#arrow-green)" /><text x="630.0" y="222.0" class="edge">TCP:9000</text><line x1="525.0" y1="220.0" x2="525.0" y2="450.0" stroke="#777777" stroke-width="2" stroke-dasharray="7 8" marker-end="url(#arrow-gray)" /><text x="525.0" y="327.0" class="edge">нет socket</text><line x1="667.8" y1="402.2" x2="592.2" y2="477.8" stroke="#777777" stroke-width="2" stroke-dasharray="7 8" marker-end="url(#arrow-gray)" /><text x="630.0" y="432.0" class="edge">нет socket</text>
+    </svg>
+    <div class="node alive" style="left:385.0px;top:79.0px" title="demo"><div class="name">📦 docker_profiler-receiver_b-1</div><div>IP: 172.18.0.3</div><div>▼ 14.13 KB | ▲ 38.73 KB</div><div class="life">активен</div></div><div class="node alive" style="left:595.0px;top:289.0px" title="demo"><div class="name">📦 docker_profiler-sender_a-1</div><div>IP: 172.18.0.4</div><div>▼ 37.17 KB | ▲ 13.58 KB</div><div class="life">активен</div></div><div class="node inactive" style="left:385.0px;top:499.0px" title="demo"><div class="name">📦 docker_profiler-storage_c-1</div><div>IP: 172.18.0.2</div><div>▼ 0.0 KB | ▲ 0.0 KB</div><div class="life">живой, нет трафика</div></div><div class="node dead" style="left:175.0px;top:289.0px" title="demo"><div class="name">📦 docker_profiler-temp_dead-1</div><div>IP: 172.18.0.5</div><div>▼ 0.0 KB | ▲ 0.0 KB</div><div class="life">мёртвый / остановлен</div></div>
+  </div>
+  <div class="bottom">
+    <b>Итог:</b>
+    running: 3,
+    активных: 2,
+    без трафика: 1,
+    мёртвых/остановленных: 1,
+    умерли за интервал: 1,
+    реальных связей: 1.
+    <br>
+    CPU: 0.0%, RAM: 0.0%.
+  </div>
+</body>
+</html>

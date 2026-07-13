@@ -1,0 +1,178 @@
+{
+  "stand": "local",
+  "created_at": "2026-07-11T20:45:53",
+  "interval_seconds": 30,
+  "host": {
+    "cpu_percent": 2.0,
+    "ram_percent": 71.8
+  },
+  "summary": {
+    "running": 3,
+    "alive": 2,
+    "inactive": 1,
+    "dead": 1,
+    "dead_during_interval": 0,
+    "actual_links": 1,
+    "network_hints": 2
+  },
+  "containers": [
+    {
+      "id": "42c2491a8ca0898b23b8e021be0a376e091efed705e7b5f3d43be234215ec03a",
+      "short_id": "42c2491a8ca0",
+      "name": "profiler_client",
+      "image": "python:3.12-alpine",
+      "status": "running",
+      "running": true,
+      "started_at": "2026-07-11T17:43:44.554225649Z",
+      "finished_at": "0001-01-01T00:00:00Z",
+      "exit_code": 0,
+      "ip": "172.31.60.3",
+      "networks": [
+        "desktop_profiler_demo_net"
+      ],
+      "network_details": {
+        "desktop_profiler_demo_net": {
+          "ip": "172.31.60.3",
+          "ipv4": "172.31.60.3",
+          "ipv6": ""
+        }
+      },
+      "traffic": {
+        "name": "profiler_client",
+        "rx_kb": 1.57,
+        "tx_kb": 3.05,
+        "total_kb": 4.63,
+        "error": null
+      },
+      "life": "alive"
+    },
+    {
+      "id": "7355c073e8c5fab72e8171ae21b82151952e5cfaf27bc72de2d42803e8fe4c85",
+      "short_id": "7355c073e8c5",
+      "name": "profiler_idle",
+      "image": "alpine:3.20",
+      "status": "running",
+      "running": true,
+      "started_at": "2026-07-11T17:43:44.374464247Z",
+      "finished_at": "0001-01-01T00:00:00Z",
+      "exit_code": 0,
+      "ip": "172.31.60.4",
+      "networks": [
+        "desktop_profiler_demo_net"
+      ],
+      "network_details": {
+        "desktop_profiler_demo_net": {
+          "ip": "172.31.60.4",
+          "ipv4": "172.31.60.4",
+          "ipv6": ""
+        }
+      },
+      "traffic": {
+        "name": "profiler_idle",
+        "rx_kb": 0.0,
+        "tx_kb": 0.0,
+        "total_kb": 0.0,
+        "error": null
+      },
+      "life": "inactive"
+    },
+    {
+      "id": "e8cbc1ab46724c76d4a1ab4e3715fd3eb15b154536a56484745a19b463393083",
+      "short_id": "e8cbc1ab4672",
+      "name": "profiler_server",
+      "image": "python:3.12-alpine",
+      "status": "running",
+      "running": true,
+      "started_at": "2026-07-11T17:43:44.371951373Z",
+      "finished_at": "0001-01-01T00:00:00Z",
+      "exit_code": 0,
+      "ip": "172.31.60.2",
+      "networks": [
+        "desktop_profiler_demo_net"
+      ],
+      "network_details": {
+        "desktop_profiler_demo_net": {
+          "ip": "172.31.60.2",
+          "ipv4": "172.31.60.2",
+          "ipv6": ""
+        }
+      },
+      "traffic": {
+        "name": "profiler_server",
+        "rx_kb": 3.05,
+        "tx_kb": 1.57,
+        "total_kb": 4.63,
+        "error": null
+      },
+      "life": "alive"
+    },
+    {
+      "id": "32c334bc7f991ef805775ec309c84b54134ffba1d1e0ec335f4998f21dceba0d",
+      "short_id": "32c334bc7f99",
+      "name": "profiler_stopped",
+      "image": "alpine:3.20",
+      "status": "exited",
+      "running": false,
+      "started_at": "2026-07-11T17:43:44.365401259Z",
+      "finished_at": "2026-07-11T17:43:44.489431883Z",
+      "exit_code": 1,
+      "ip": "N/A",
+      "networks": [
+        "desktop_profiler_demo_net"
+      ],
+      "network_details": {
+        "desktop_profiler_demo_net": {
+          "ip": "",
+          "ipv4": "",
+          "ipv6": ""
+        }
+      },
+      "traffic": {
+        "name": "profiler_stopped",
+        "rx_kb": 0.0,
+        "tx_kb": 0.0,
+        "total_kb": 0.0,
+        "error": null
+      },
+      "life": "dead",
+      "dead_reason": "already_stopped_or_exited"
+    }
+  ],
+  "links": [
+    {
+      "source_id": "42c2491a8ca0898b23b8e021be0a376e091efed705e7b5f3d43be234215ec03a",
+      "target_id": "e8cbc1ab46724c76d4a1ab4e3715fd3eb15b154536a56484745a19b463393083",
+      "source": "profiler_client",
+      "target": "profiler_server",
+      "network": "desktop_profiler_demo_net",
+      "protocol": "TCP",
+      "target_port": 9000,
+      "type": "socket",
+      "count": 2
+    },
+    {
+      "source_id": "42c2491a8ca0898b23b8e021be0a376e091efed705e7b5f3d43be234215ec03a",
+      "target_id": "7355c073e8c5fab72e8171ae21b82151952e5cfaf27bc72de2d42803e8fe4c85",
+      "source": "profiler_client",
+      "target": "profiler_idle",
+      "network": "desktop_profiler_demo_net",
+      "protocol": "-",
+      "target_port": "-",
+      "type": "no_socket",
+      "count": 0
+    },
+    {
+      "source_id": "7355c073e8c5fab72e8171ae21b82151952e5cfaf27bc72de2d42803e8fe4c85",
+      "target_id": "e8cbc1ab46724c76d4a1ab4e3715fd3eb15b154536a56484745a19b463393083",
+      "source": "profiler_idle",
+      "target": "profiler_server",
+      "network": "desktop_profiler_demo_net",
+      "protocol": "-",
+      "target_port": "-",
+      "type": "no_socket",
+      "count": 0
+    }
+  ],
+  "socket_errors": [],
+  "note": "socket = реальная текущая связь; no_socket = общая Docker-сеть, но socket-связь не найдена."
+}
