@@ -75,7 +75,7 @@ reports/demo.json
 
 5. Для запуска на своих Docker-контейнерах:
 
-```
+```bash
 python main.py --time 30 --sample-interval 1 --stand local --out reports/report
 ```
 
