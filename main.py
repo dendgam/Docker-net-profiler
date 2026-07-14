@@ -132,7 +132,7 @@ def run_profiler(args: argparse.Namespace) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Лёгкий Docker Network Profiler для учебной практики")
+    parser = argparse.ArgumentParser(description="Docker Network Profiler")
     parser.add_argument("--time", type=int, default=30, help="интервал мониторинга в секундах")
     parser.add_argument("--sample-interval", type=float, default=1.0, help="частота сбора трафика и сокетов в секундах")
     parser.add_argument("--out", default="reports/report", help="путь без расширения для отчётов")
